@@ -1,1 +1,0 @@
-CREATE TABLE Authors (id SERIAL PRIMARY KEY, name VARCHAR(100), birth_date date);

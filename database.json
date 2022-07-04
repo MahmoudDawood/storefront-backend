@@ -3,14 +3,15 @@
     "driver": "pg",
     "host": "127.0.0.1",
     "database": "dev",
-    "user": "user1",
-    "password": "password"
+    "user": "postgres",
+    "password": "01128593701m"
   },
   "test": {
     "driver": "pg",
     "host": "127.0.0.1",
-    "database": "fantasy_worlds_test",
-    "user": "test_user",
-    "password": "password123"
-  }
+    "database": "dev_test",
+    "user": "postgres",
+    "password": "01128593701m"
+  },
+  "sql-file": true
 }
