@@ -2,7 +2,7 @@
   "dev": {
     "driver": "pg",
     "host": "127.0.0.1",
-    "database": "dev",
+    "database": "store_front",
     "user": "postgres",
     "password": "01128593701m"
   },
