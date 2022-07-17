@@ -4,7 +4,7 @@ import { ProductStore } from '../Models/product';
 // SHOW route: 'blogs/:id' [GET]
 // - Index ####
 // - Show ####
-// - Create [token required]
+// - Create [token required] -----------------
 // - [OPTIONAL] Top 5 most popular products --------------------------------------
 // - [OPTIONAL] Products by category (args: product category) #######
 

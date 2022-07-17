@@ -13,7 +13,7 @@ const firstProduct = {
   category: 'sports'
 };
 
-describe('Test products model methods:', () => {
+describe('Test products model:', () => {
   it('Should have an index method', () => {
     expect(store.index).toBeDefined();
   });
