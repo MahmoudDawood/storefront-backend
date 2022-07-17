@@ -7,6 +7,7 @@ const { PG_HOST, PG_DATABASE, PG_DATABASE_TEST, PG_USER, PG_PASSWORD, ENV } =
   process.env;
 
 const database = ENV === 'test' ? PG_DATABASE_TEST : PG_DATABASE;
+console.log('Database: ' + database);
 
 const Client = new Pool({
   host: PG_HOST,
