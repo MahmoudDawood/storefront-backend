@@ -10,7 +10,7 @@ const index = async (_req: Request, res: Response) => {
 };
 
 const show = async (_req: Request, res: Response) => {
-  const result = await store.show(parseInt(_req.params.id));
+  const result = await store.ordersByUser(parseInt(_req.params.id));
   res.send(result);
 };
 

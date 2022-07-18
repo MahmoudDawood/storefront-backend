@@ -1,28 +1,23 @@
-import { UserStore } from '../../Models/user';
+import { User, UserStore } from '../../Models/user';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 dotenv.config();
 
 const pepper = process.env.BCRYPT_PASSWORD;
-const saltRounds = process.env.SALT_ROUNDS;
 
 const store = new UserStore();
 const testUser = {
-  firstName: 'first',
-  lastName: 'last',
+  firstName: 'test',
+  lastName: 'user',
+  username: 'testuser',
   password: 'password'
 };
-const dbUser = {
-  firstname: 'first',
-  lastname: 'last',
-  password: bcrypt.hashSync('password' + pepper, parseInt(saltRounds as string))
-};
-
 const firstUser = {
   id: 1,
-  firstName: 'first',
-  lastName: 'last',
-  password: bcrypt.hashSync('password' + pepper, parseInt(saltRounds as string))
+  firstName: 'test',
+  lastName: 'user',
+  username: 'testuser',
+  password: 'password'
 };
 
 describe('Tests users model:', () => {
@@ -37,30 +32,75 @@ describe('Tests users model:', () => {
   });
   it('Should list all users (index)', async () => {
     const users = await store.index();
-    expect(users.length).toBe(0);
-    expect(users).toEqual([]);
+    expect(users.length).toBe(1);
+    // const [firstName, lastName, userName, password] = Object.values(users[0]);
+    // expect([firstName, lastName, userName, password]).toEqual(
+    //   Object.values(firstUser)
+    // );
   });
   it('Should create a user (create)', async () => {
     const user = await store.create(testUser);
-    // expect(user).toEqual({
-    //   firstname: 'first',
-    //   lastname: 'last',
-
-    // })
-    // console.log(user);
-    // expect(user.firstName).toBe('first');
-    // expect(user.lastName).toBe('last');
+    const [id, firstName, lastName, username, password] = Object.values(user);
+    expect([firstName, lastName, username]).toEqual(
+      Object.values(firstUser).slice(1, 4)
+    );
+    expect(id).toBe(2);
     expect(
-      bcrypt.compareSync('password' + pepper, firstUser.password)
+      bcrypt.compareSync(firstUser.password + pepper, password as string)
     ).toBeTruthy();
   });
   it('Should show created user by id', async () => {
     const user = await store.show(1);
-    expect(user).toEqual(firstUser);
+    const [id, firstName, lastName, username, password] = Object.values(user);
+    expect([id, firstName, lastName, username]).toEqual(
+      Object.values(firstUser).slice(0, 4)
+    );
+    expect(
+      bcrypt.compareSync(firstUser.password + pepper, password as string)
+    ).toBeTruthy();
   });
   it('Should list all users2 (index)', async () => {
     const users = await store.index();
-    expect(users.length).toBe(1);
-    expect(users).toEqual([firstUser]);
+    expect(users.length).toBe(2);
+    const [id, firstName, lastName, username, password] = Object.values(
+      users[0]
+    );
+    expect([id, firstName, lastName, username]).toEqual(
+      Object.values(firstUser).slice(0, 4)
+    );
+    expect(
+      bcrypt.compareSync(firstUser.password + pepper, password as string)
+    ).toBeTruthy();
   });
+  it('Should autheticate saved user', async () => {
+    const user = await store.authenticate(testUser.username, testUser.password);
+    const [id, firstName, lastName, username, password] = Object.values(
+      user as User
+    );
+    expect([id, firstName, lastName, username]).toEqual(
+      Object.values(firstUser).slice(0, 4)
+    );
+    expect(
+      bcrypt.compareSync(firstUser.password + pepper, password as string)
+    ).toBeTruthy();
+  });
+  it('Should refuse to autheticate fake user', async () => {
+    const user = await store.authenticate(testUser.username, 'fakePassword');
+    expect(user).toBeNull();
+  });
+  // it('Should delete user', async () => {
+  //   const user = await store.delete(firstUser.id);
+  //   const [id, firstName, lastName, username, password] = Object.values(user);
+  //   expect([id, firstName, lastName, username]).toEqual(
+  //     Object.values(firstUser).slice(0, 4)
+  //   );
+  //   expect(
+  //     bcrypt.compareSync(firstUser.password + pepper, password as string)
+  //   ).toBeTruthy();
+  // });
+  // it('Should list all users3 (index)', async () => {
+  //   const users = await store.index();
+  //   expect(users.length).toBe(0);
+  //   expect(users).toEqual([]);
+  // });
 });

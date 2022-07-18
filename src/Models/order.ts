@@ -20,7 +20,8 @@ export class OrderStore {
     }
   }
 
-  async show(id: number): Promise<Order[]> {
+  async ordersByUser(id: number): Promise<Order[]> {
+    // Show orders by user
     const connection = await Client.connect();
     try {
       const sql = 'SELECT * FROM orders INNER JOIN users ON users.id=$1';
@@ -61,6 +62,7 @@ export class OrderStore {
         orderId,
         productId
       ]);
+      // console.log(result.rows[0]);
       return result.rows[0];
     } catch (err) {
       throw new Error(`Couldn't add product to order. Error: ${err}`);
@@ -69,16 +71,16 @@ export class OrderStore {
     }
   }
 
-  async delete(id: number): Promise<Order> {
-    const connection = await Client.connect();
-    try {
-      const sql = 'DELETE FROM orders WHERE id=$1';
-      const result = await connection.query(sql, [id]);
-      return result.rows[0];
-    } catch (err) {
-      throw new Error(`Couldnt delete order. Error: ${err}`);
-    } finally {
-      connection.release();
-    }
-  }
+  // async delete(id: number): Promise<Order> {
+  //   const connection = await Client.connect();
+  //   try {
+  //     const sql = 'DELETE FROM orders WHERE id=$1';
+  //     const result = await connection.query(sql, [id]);
+  //     return result.rows[0];
+  //   } catch (err) {
+  //     throw new Error(`Couldnt delete order. Error: ${err}`);
+  //   } finally {
+  //     connection.release();
+  //   }
+  // }
 }

@@ -10,6 +10,7 @@ export type User = {
   id: number;
   firstName: string;
   lastName: string;
+  username: string;
   password: string;
 };
 
@@ -44,7 +45,7 @@ export class UserStore {
     const connection = await Client.connect();
     try {
       const sql =
-        'INSERT INTO users (firstName, lastName, password)VALUES ($1, $2, $3) RETURNING *';
+        'INSERT INTO users (firstName, lastName, username, password)VALUES ($1, $2, $3, $4) RETURNING *';
       const hash = bcrypt.hashSync(
         user.password + pepper,
         parseInt(saltRounds)
@@ -52,9 +53,9 @@ export class UserStore {
       const result = await connection.query(sql, [
         user.firstName,
         user.lastName,
+        user.username,
         hash
       ]);
-      console.log(result.rows[0]);
       return result.rows[0];
     } catch (err) {
       throw new Error(`Couldnt create user. Error: ${err}`);
@@ -63,34 +64,36 @@ export class UserStore {
     }
   }
 
-  // async authenticate(username: string, password: string): Promise<User | null> {
-  //   const connection = await Client.connect();
-  //   try {
-  //     const sql = 'SELECT * FROM users WHERE username=$1';
-  //     const result = await connection.query(sql, [username]);
-  //     if (result.rows.length) {
-  //       const user = result.rows[0];
-  //       if (bcrypt.compareSync(password + pepper, user.password))
-  //         return user;
-  //     }
-  //     return null;
-  //   } catch (err) {
-  //     throw new Error(`Couldn't authenticate user'. Error: ${err}`);
-  //   } finally {
-  //     connection.release();
-  //   }
-  // }
-
-  async delete(id: number): Promise<User> {
+  async authenticate(username: string, password: string): Promise<User | null> {
     const connection = await Client.connect();
     try {
-      const sql = 'DELETE FROM users WHERE id=$1 RETURNING *';
-      const result = await connection.query(sql, [id]);
-      return result.rows[0];
+      const sql = 'SELECT * FROM users WHERE username=$1';
+      const result = await connection.query(sql, [username]);
+      if (result.rows.length) {
+        const user = result.rows[0];
+        if (bcrypt.compareSync(password + pepper, user.password)) return user;
+      }
+      return null;
     } catch (err) {
-      throw new Error(`Couldnt delete user. Error: ${err}`);
+      throw new Error(`Couldn't authenticate user'. Error: ${err}`);
     } finally {
       connection.release();
     }
   }
+
+  // Deletes user with it's orders
+  // async delete(id: number): Promise<User> {
+  //   const connection = await Client.connect();
+  //   try {
+  //     // const sql = `DELETE FROM orders WHERE user_id=$1`;
+  //     const sql = `DELETE FROM users WHERE id=$1 RETURNING *`;
+  //     // await connection.query(sql, [id]);
+  //     const result = await connection.query(sql, [id]);
+  //     return result.rows[0];
+  //   } catch (err) {
+  //     throw new Error(`Couldnt delete user. Error: ${err}`);
+  //   } finally {
+  //     connection.release();
+  //   }
+  // }
 }
