@@ -12,8 +12,24 @@ const fiveMostExpensiveProducts = async (
   res.json(result);
 };
 
+const fiveMostPopularProducts = async (
+  _req: Request,
+  res: Response
+): Promise<void> => {
+  const result = await dashboard.fiveMostPopularProducts();
+  res.json(result);
+};
+
 const usersWithOrders = async (_req: Request, res: Response): Promise<void> => {
   const result = await dashboard.usersWithOrders();
+  res.json(result);
+};
+
+const userCompletedOrders = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const result = await dashboard.userCompletedOrders(parseInt(req.params.id));
   res.json(result);
 };
 
@@ -26,7 +42,9 @@ const productsInOrders = async (
 };
 
 dashboardRouter.get('/five-most-expensive-products', fiveMostExpensiveProducts);
+dashboardRouter.get('/five-most-popular-products', fiveMostPopularProducts);
 dashboardRouter.get('/users-with-orders', usersWithOrders);
+dashboardRouter.get('/user-completed-orders/:id', userCompletedOrders);
 dashboardRouter.get('/products-in-orders', productsInOrders);
 
 export default dashboardRouter;
