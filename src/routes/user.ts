@@ -2,7 +2,7 @@ import { UserStore } from '../Models/user';
 import { Router, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import authentication from '../Middlewares/authentication';
-import authorization from '../Middlewares/authorization';
+// import authorization from '../Middlewares/authorization';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -44,21 +44,21 @@ const create = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const authenticate = async (req: Request, res: Response): Promise<void> => {
-  const username = req.body.username;
-  const password = req.body.password;
-  try {
-    const result = await store.authenticate(username, password);
-    const token = jwt.sign(
-      { user: result },
-      process.env.TOKEN_SECRET as string
-    );
-    if (result === null) res.status(400).json('User not found.');
-    else res.status(200).json(token);
-  } catch (err) {
-    res.status(401).json(`User Authentication Failed: ${err}`);
-  }
-};
+// const authenticate = async (req: Request, res: Response): Promise<void> => {
+//   const username = req.body.username;
+//   const password = req.body.password;
+//   try {
+//     const result = await store.authenticate(username, password);
+//     const token = jwt.sign(
+//       { user: result },
+//       process.env.TOKEN_SECRET as string
+//     );
+//     if (result === null) res.status(400).json('User not found.');
+//     else res.status(200).json(token);
+//   } catch (err) {
+//     res.status(401).json(`User Authentication Failed: ${err}`);
+//   }
+// };
 
 // const deleteUser = async (req: Request, res: Response): Promise<void> => {
 //   try {
@@ -72,7 +72,7 @@ const authenticate = async (req: Request, res: Response): Promise<void> => {
 userRouter.get('/', authentication, index);
 userRouter.get('/:id', authentication, show);
 userRouter.post('/', create);
-userRouter.post('/authenticate', authenticate);
+// userRouter.post('/authenticate', authenticate);
 // userRouter.delete('/:id', authentication, authorization, deleteUser);
 
 export default userRouter;

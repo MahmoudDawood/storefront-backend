@@ -1,5 +1,3 @@
-import { UserStore } from '../../Models/user';
-import { Order, OrderStore } from '../../Models/order';
 import app from '../../server';
 import supertest from 'supertest';
 

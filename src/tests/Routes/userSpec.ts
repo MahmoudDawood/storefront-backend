@@ -33,13 +33,13 @@ describe('Test user router', () => {
       jwt.verify(result.body, process.env.TOKEN_SECRET as string)
     ).toBeDefined();
   });
-  it('Test GET (show) method for /users/', async () => {
+  it('Test GET (show) method for /users/:id', async () => {
     // Arrange - Act - Assert
     const result = await request
       .get('/users/4')
       .set('Authorization', `Bearer ${token}`);
     expect(result.status).toBe(200);
-    const [id, firstName, lastName, username, password] = Object.values(
+    const [, firstName, lastName, username] = Object.values(
       JSON.parse(result.text)
     );
     expect([firstName, lastName, username]).toEqual(['Mark', 'Twain', 'mtmtm']);

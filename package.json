@@ -7,8 +7,8 @@
     "lint": "eslint --ignore-path .eslintignore . --ext .ts",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "start": "node dist/server.js",
-    "watch": "npm run build && tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "npm run build && SET ENV=test&& db-migrate reset --env test && db-migrate up --env test && cross-env ENV=test jasmine",
+    "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
+    "test": "npm run build && SET ENV=test&& db-migrate reset --env test && db-migrate up --env test && jasmine",
     "build": "npx tsc"
   },
   "author": "Udacity",

@@ -12,7 +12,6 @@ const app: express.Application = express();
 const address = '0.0.0.0:3000';
 const PORT = 3000 || process.env.PORT;
 const corsOptions = {
-  origin: 'http://example.com',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
