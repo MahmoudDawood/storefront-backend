@@ -12,6 +12,7 @@ describe('Tests orders model', () => {
     store = new OrderStore();
     userStore = new UserStore();
     testUser = await userStore.create({
+      // Must create user to refernce in user_id column
       firstName: 'test',
       lastName: 'user',
       username: 'testuser',
@@ -58,9 +59,5 @@ describe('Tests orders model', () => {
     const product = await store.addProduct(1, 1, 1);
     const [quantity, order_id, product_id] = Object.values(product);
     expect([quantity, order_id, product_id]).toEqual([1, '1', '1']);
-    // expect(product).toEqual({quantity: 1, order_id: 1, product_id: 1})
-    // const [id, status, user_id] = Object.values(orders[0]);
-    // const numeratedId = +user_id;
-    // expect([status, numeratedId]).toEqual(Object.values(testOrder));
   });
 });
