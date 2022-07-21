@@ -12,25 +12,38 @@
   - Authenticating users
   - Testing it's models (unit testing) and routes (integration testing)
 
-- ## **For more info about the project, RESTful routes, database schema visit <a>REQUIREMENTS.md</a>**
+- # For more info about the project, RESTful routes, database schema visit [REQUIREMENTS.md] (REQUIREMENTS.md)</a>
 
-### Tech used: TypeScript, Express, Node.js, PostgreSQL, Jasmine<br>
+### Tech used: TypeScript, Express, Node.js, PostgreSQL, Jasmine.<br>
 
 ## Project setup steps
 
-- ## **Create .env file with the following keys & fill empty field with your preference:**
+- ### **Configure database:**
 
-  PG_HOST=127.0.0.1
-  PG_DATABASE=store_front
-  PG_DATABASE_TEST=store_front_test
-  PG_USER=
-  PG_PASSWORD=
-  ENV=dev
-  BCRYPT_PASSWORD=
-  SALT_ROUNDS=
-  TOKEN_SECRET=
+  **Create user:** `CREATE USER store_user WITH PASSWORD 'chosenPassword123';`<br>
+  **Create database:** ``CREATE DATABASE store_front;`<br>
+  **Create test database:** `CREATE DATABASE store_front_test;`<br>
+  **Grant all privilages to user in both databases:**
+  `GRANT ALL PRIVILAGES ON DATABASE store_front TO store_user;`<br>
+  `GRANT ALL PRIVILAGES ON DATABASE store_front_test TO store_user;`<br>
 
-- ## **Create database (store_front) & (store_front_test) for testing**
+- **Create .env file with the following keys & fill your preference:**
+
+  PG_HOST=127.0.0.1<br>
+  PG_DATABASE=store_front<br>
+  PG_DATABASE_TEST=store_front_test<br>
+  PG_USER=store_user<br>
+  PG_PASSWORD=chosePassword123<br>
+  ENV=dev<br>
+  BCRYPT_PASSWORD=[[Pepper-preference]]<br>
+  SALT_ROUNDS=[[Hashing-rounds-preference]]<br>
+  TOKEN_SECRET=[[Secret-signature-preference]]<br>
+
+- **Ports:**
+
+  - Database port: `5432`
+  - Development Server port: `3000`
+  - Testing server port: `4000`
 
 - ## **Important Scripts:**
 
@@ -40,9 +53,7 @@
   - Watch server: `npm run watch`
   - Start: `npm run start`
 
-- **Ports:**
-  - Development Server is running on port `3000`
-  - Testing server is running on port `4000`
+---
 
 ## Optimizations
 
@@ -56,12 +67,10 @@
 
 ## Lessons Learned:
 
-**By failing to prepare, you're preparing to fail.**
-Gathering requirements and planning could be more important than developing the product, which was true to me in this project.
-Returning to the big picture from time to time and aligning current task with our main objective is very important to visualize the process in our mind. It was mentioned before in learning how to learn course. After learning this concept, this project was my first actual proof of it.
-Learning the concept is more important than knowing the syntax, I knew this before but, I experienced it now.
-
----
+**By failing to prepare, you're preparing to fail.**<br>
+Gathering requirements and planning could be more important than developing the product, which was true to me in this project.<br>
+Returning to the big picture from time to time and aligning current task with our main objective is very important to visualize the process in our mind. It was mentioned before in learning how to learn course. After learning this concept, this project was my first actual proof of it.<br>
+Learning the concept is more important than knowing the syntax, I knew this before but, I experienced it here.
 
 <!-- ## Getting Started
 
