@@ -10,7 +10,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 - AN INDEX route: '/products' [GET]
 - A SHOW route: '/products/:id' [GET]
-- A SHOW products in orders route: '/products-in-order' [GET]
+- A SHOW products in orders route: '/products-in-orders' [GET]
 - A SHOW by category route: '/products/?category' [GET]
 - A SHOW five most expensive route: '/five-most-expensive-products' [GET]
 - A SHOW five most popular route: '/five-most-popular-products' [GET]

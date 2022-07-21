@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { DashboardQueries } from '../services/dashboard';
+import authenctication from '../Middlewares/authentication';
 
 const dashboardRouter = Router();
 const dashboard = new DashboardQueries();
@@ -43,7 +44,7 @@ const productsInOrders = async (
 
 dashboardRouter.get('/five-most-expensive-products', fiveMostExpensiveProducts);
 dashboardRouter.get('/five-most-popular-products', fiveMostPopularProducts);
-dashboardRouter.get('/users-with-orders', usersWithOrders);
+dashboardRouter.get('/users-with-orders', authenctication, usersWithOrders);
 dashboardRouter.get('/user-completed-orders/:id', userCompletedOrders);
 dashboardRouter.get('/products-in-orders', productsInOrders);
 

@@ -62,7 +62,6 @@ export class OrderStore {
         orderId,
         productId
       ]);
-      // console.log(result.rows[0]);
       return result.rows[0];
     } catch (err) {
       throw new Error(`Couldn't add product to order. Error: ${err}`);

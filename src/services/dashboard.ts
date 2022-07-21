@@ -28,9 +28,10 @@ export class DashboardQueries {
   async usersWithOrders(): Promise<OrderUser[]> {
     const connection = await Client.connect();
     try {
-      const sql = `SELECT orders.id as order_Id, orders.status, users.id as user_Id, users.name
+      const sql = `SELECT orders.id as order_Id, orders.status, users.id as user_Id, users.username
         FROM orders INNER JOIN users on users.id=orders.user_id ORDER BY orders.id`;
       const result = await connection.query(sql);
+      console.log('result.rows: ', result.rows);
       return result.rows;
     } catch (err) {
       throw new Error(`Couldn't show users who made orders. Error: ${err}`);

@@ -13,8 +13,12 @@ const store = new ProductStore();
 const productRouter = Router();
 
 const index = async (_req: Request, res: Response) => {
+  if (_req.query.category) {
+    await showByCategroy(_req, res);
+    return;
+  }
   const result = await store.index();
-  res.send(result);
+  res.json(result);
 };
 const show = async (req: Request, res: Response) => {
   const result = await store.show(parseInt(req.params.id));
@@ -35,8 +39,7 @@ const showByCategroy = async (req: Request, res: Response) => {
   res.send(result);
 };
 
-productRouter.get('/', showByCategroy); // >> query params
-productRouter.get('/', index);
+productRouter.get('/', index); // Show by category is included via query params
 productRouter.get('/:id', show); // path params
 productRouter.post('/', authentication, create);
 
