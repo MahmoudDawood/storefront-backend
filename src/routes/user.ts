@@ -6,22 +6,27 @@ import authentication from '../middlewares/authentication';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// #### Users
-// - Index [token required]
-// - Show [token required]
-// - Create N[token required]
-
 const userRouter = Router();
 const store = new UserStore();
 
 const index = async (_req: Request, res: Response): Promise<void> => {
-  const result = await store.index();
-  res.send(result);
+  try {
+    const result = await store.index();
+    res.send(result);
+  } catch (err) {
+    res.status(400);
+    res.json(`Couldn't complete GET request to /users. Error: {err}`);
+  }
 };
 
 const show = async (req: Request, res: Response): Promise<void> => {
-  const result = await store.show(parseInt(req.params.id));
-  res.send(result);
+  try {
+    const result = await store.show(parseInt(req.params.id));
+    res.send(result);
+  } catch (err) {
+    res.status(400);
+    res.json(`Couldn't complete GET request to /users/:id. Error: {err}`);
+  }
 };
 
 const create = async (req: Request, res: Response): Promise<void> => {
@@ -40,7 +45,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
     res.json(token);
   } catch (err) {
     res.status(400);
-    res.json(err);
+    res.json(`Couldn't complete POST request to /users. Error: {err}`);
   }
 };
 

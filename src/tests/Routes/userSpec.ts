@@ -34,10 +34,13 @@ describe('Test user router', () => {
     ).toBeDefined();
   });
   it('Test GET (show) method for /users/:id', async () => {
-    // Arrange - Act - Assert
+    // Arrange
+    const id = 5;
+    //Act
     const result = await request
-      .get('/users/4')
+      .get(`/users/${id}`)
       .set('Authorization', `Bearer ${token}`);
+    // Assert
     expect(result.status).toBe(200);
     const [, firstName, lastName, username] = Object.values(
       JSON.parse(result.text)

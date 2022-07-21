@@ -15,7 +15,6 @@ describe('Test product router', () => {
       password: 'password'
     });
     token = response.body;
-    // console.log(token);
   });
   const testProduct = {
     name: 'band',
@@ -32,7 +31,7 @@ describe('Test product router', () => {
     // Arrange - Act - Assert
     const response = await request.get('/products');
     expect(response.status).toBe(200);
-    expect(response.text).toEqual(`[]`);
+    expect(JSON.parse(response.text).length).toEqual(2);
   });
   it('Test PUT (create) method for /products/', async () => {
     // Arrange - Act - Assert

@@ -4,7 +4,17 @@ import supertest from 'supertest';
 const request = supertest(app);
 
 describe('Test orders route', () => {
-  // let testOrder: Order;
+  let token: string;
+  beforeAll(async () => {
+    const response = await request.post('/users/').send({
+      // Must create user to get authenticated token
+      firstName: 'test',
+      lastName: 'user',
+      username: 'testuser',
+      password: 'password'
+    });
+    token = response.body;
+  });
   const testOrder = {
     status: 'shipped',
     userId: 1
@@ -16,7 +26,10 @@ describe('Test orders route', () => {
     expect(result.body.length).toBe(1);
   });
   it('Test POST (create) method on /orders/', async () => {
-    const result = await request.post('/orders').send(testOrder);
+    const result = await request
+      .post('/orders')
+      .set('Authorization', `Bearer ${token}`)
+      .send(testOrder);
 
     expect(result.status).toBe(200); // Check reation status code to be 201 ---------
     expect(result.body.status).toBe('shipped');
@@ -26,7 +39,9 @@ describe('Test orders route', () => {
     // Arrange
     const id = 1;
     // Act
-    const result = await request.get(`/orders/${id}`);
+    const result = await request
+      .get(`/orders/${id}`)
+      .set('Authorization', `Bearer ${token}`);
     // Assert
 
     expect(result.status).toBe(200);
@@ -37,7 +52,9 @@ describe('Test orders route', () => {
     // Arrange
     const id = 1;
     // Act
-    const result = await request.get(`/user-completed-orders/${id}`);
+    const result = await request
+      .get(`/user-completed-orders/${id}`)
+      .set('Authorization', `Bearer ${token}`);
     // Assert
     expect(result.status).toBe(200);
     expect(result.body).toEqual([]);
