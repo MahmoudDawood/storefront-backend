@@ -1,4 +1,4 @@
-import { User, UserStore } from '../../Models/user';
+import { User, UserStore } from '../../models/user';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 dotenv.config();

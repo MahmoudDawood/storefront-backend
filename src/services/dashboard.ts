@@ -1,6 +1,6 @@
 import Client from '../database';
-import { Order } from '../Models/order';
-import { Product } from '../Models/product';
+import { Order } from '../models/order';
+import { Product } from '../models/product';
 
 interface OrderUser extends Order {
   name: string;

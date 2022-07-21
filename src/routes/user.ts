@@ -1,7 +1,7 @@
-import { UserStore } from '../Models/user';
+import { UserStore } from '../models/user';
 import { Router, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import authentication from '../Middlewares/authentication';
+import authentication from '../middlewares/authentication';
 // import authorization from '../Middlewares/authorization';
 import dotenv from 'dotenv';
 dotenv.config();

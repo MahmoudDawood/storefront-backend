@@ -1,10 +1,10 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import orderRouter from './Routes/order';
-import userRouter from './Routes/user';
-import productRouter from './Routes/product';
-import dashboardRouter from './Routes/dashboard';
+import orderRouter from './routes/order';
+import userRouter from './routes/user';
+import productRouter from './routes/product';
+import dashboardRouter from './routes/dashboard';
 import dotenv from 'dotenv';
 dotenv.config();
 

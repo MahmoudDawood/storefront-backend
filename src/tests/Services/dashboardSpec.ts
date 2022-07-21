@@ -1,5 +1,5 @@
-import { Order, OrderStore } from '../../Models/order';
-import { Product, ProductStore } from '../../Models/product';
+import { Order, OrderStore } from '../../models/order';
+import { Product, ProductStore } from '../../models/product';
 import { DashboardQueries } from '../../services/dashboard';
 
 describe('Test dashboard methods', () => {

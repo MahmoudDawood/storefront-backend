@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { ProductStore } from '../Models/product';
-import authentication from '../Middlewares/authentication';
+import { ProductStore } from '../models/product';
+import authentication from '../middlewares/authentication';
 
 // SHOW route: 'blogs/:id' [GET]
 // - Index ####

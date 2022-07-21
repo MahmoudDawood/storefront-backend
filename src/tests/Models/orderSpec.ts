@@ -1,6 +1,6 @@
-import { OrderStore } from '../../Models/order';
-import { User, UserStore } from '../../Models/user';
-import { Product, ProductStore } from '../../Models/product';
+import { OrderStore } from '../../models/order';
+import { User, UserStore } from '../../models/user';
+import { Product, ProductStore } from '../../models/product';
 
 describe('Tests orders model', () => {
   let store: OrderStore;

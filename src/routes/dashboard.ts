@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { DashboardQueries } from '../services/dashboard';
-import authenctication from '../Middlewares/authentication';
+import authenctication from '../middlewares/authentication';
 
 const dashboardRouter = Router();
 const dashboard = new DashboardQueries();
