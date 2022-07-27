@@ -35,71 +35,36 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Products
 
-| id (pk) |     name (string)     | price (number) | category (string) |
-| :-----: | :-------------------: | :------------: | :---------------: |
-|         | VARCHAR(255) NOT NULL |    INTEGER     |    VARCHAR(50)    |
+| Name              | Type                  |
+| ----------------- | --------------------- |
+| id (pk)           | SERIAL                |
+| name (string)     | VARCHAR(255) NOT NULL |
+| price (number)    | INT                   |
+| category (string) | VARCHAR(50)           |
 
 #### Users
 
-| id (pk) | firstName (string) | lastName (number) |  username (string)   |   password (string)   |
-| :-----: | :----------------: | :---------------: | :------------------: | :-------------------: |
-|         |    VARCHAR(20)     |    VARCHAR(20)    | VARCHAR(50) NOT NULL | VARCHAR(255) NOT NULL |
+| Name               | Type                  |
+| ------------------ | --------------------- |
+| id (pk)            | SERIAL                |
+| firstName (string) | VARCHAR(20)           |
+| lastName (number)  | VARCHAR(20)           |
+| username (string)  | VARCHAR(50) NOT NULL  |
+| password (string)  | VARCHAR(255) NOT NULL |
 
 #### Orders
 
-| id(pk) | status(string) |    user_id(fk)    |
-| :----: | :------------: | :---------------: |
-|        |  VARCHAR(100)  | BIGINT users (id) |
+| Name            | Type         | References |
+| --------------- | ------------ | ---------- |
+| id (pk)         | SERIAL       |            |
+| status (string) | VARCHAR(100) |            |
+| user_id (fk)    | BIGINT       | users (id) |
 
 #### Order_products
 
-| (order_id, product_id)(pk) | quantity(number) |    order_id(fk)    |   product_id(fk)    |
-| :------------------------: | :--------------: | :----------------: | :-----------------: |
-|                            | INTEGER NOT NULL | BIGINT orders (id) | BIGINT product (id) |
-
----
-
-<!-- ## API Endpoints
-
-#### Products
-
-- Index
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products
-- [OPTIONAL] Products by category (args: product category)
-
-#### Users
-
-- Index [token required]
-- Show [token required]
-- Create N[token required]
-
-#### Orders
-
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
-
-## Data Shapes
-
-#### Product
-
-- id
-- name
-- price
-- [OPTIONAL] category
-
-#### User
-
-- id
-- firstName
-- lastName
-- password
-
-#### Orders
-
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete) -->
+| Name                        | Type             | References    |
+| --------------------------- | ---------------- | ------------- |
+| (order_id, product_id) (pk) | COMPOSITE        |               |
+| quantity (number)           | INTEGER NOT NULL |               |
+| order_id (fk)               | BIGINT           | orders (id)   |
+| product_id (fk)             | BIGINT           | products (id) |
